@@ -51,34 +51,3 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
 
-
-
-
-
-
-    // // Categories
-    // Route::get('/categories', [CategoryController::class, 'index']);
-
-    // // Ingredients
-    // Route::get('/ingredients',[IngredientController::class, 'index']);
-    
-    // // Steps
-    // Route::get('/recipes/{recipeId}/steps', [StepController::class, 'index']);
-    // Route::post('/recipes/{recipeId}/steps', [StepController::class, 'store']);
-    // Route::put('/steps/{id}',               [StepController::class, 'update']);
-    // Route::delete('/steps/{id}',            [StepController::class, 'destroy']);
-
-
-
-
-
-
-
-
-        // Steps (Nested & Shallow)
-        // This creates:
-        // GET  /recipes/{recipe}/steps       (index)
-        // POST /recipes/{recipe}/steps       (store)
-        // PUT  /steps/{step}                 (update)
-        // DELETE /steps/{step}               (destroy)
-        // Route::apiResource('recipes.steps', StepController::class)->shallow()->except(['show']);
