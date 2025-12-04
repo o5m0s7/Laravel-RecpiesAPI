@@ -5,9 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\IngredientController;
 use App\Http\Controllers\SearchController;
-use App\Http\Controllers\StepController;
 use App\Http\Controllers\UserController;
 
 Route::get('/user', function (Request $request) {
