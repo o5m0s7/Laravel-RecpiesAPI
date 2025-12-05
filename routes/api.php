@@ -2,10 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UserController;
 
 Route::get('/user', function (Request $request) {
@@ -39,8 +37,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/categories/{id}', [CategoryController::class, 'update']);
     Route::delete('/categories/{id}', [CategoryController::class, 'destroy']);
 
-    // Search
-    Route::get('/search', [SearchController::class, 'search']);   // ?q=chicken
 });
 
     
