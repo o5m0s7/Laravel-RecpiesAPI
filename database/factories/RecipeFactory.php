@@ -23,7 +23,7 @@ class RecipeFactory extends Factory
             'image_path'       => 'default.jpg',
             'cooking_time' => $this->faker->numberBetween(10, 120),
             'prep_time' => $this->faker->numberBetween(5, 60),
-            'category_name' => Category::inRandomOrder()->first()?->id ?? Category::factory(),
+            'category_name' => Category::inRandomOrder()->first()?->name ?? Category::factory(),
         ];
     }
 }

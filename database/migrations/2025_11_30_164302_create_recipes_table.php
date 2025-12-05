@@ -17,6 +17,8 @@ return new class extends Migration
     $table->text('description')->nullable();
     $table->integer('cooking_time')->nullable();
     $table->integer('prep_time')->nullable();
+    $table->unsignedBigInteger('category_id')->nullable();
+    $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
     $table->string('category_name');     
     $table->string('image_path')->nullable();
     $table->timestamps();
@@ -29,7 +31,10 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('recipes');
+        Schema::dropIfExists('recipes', function (Blueprint $table){
+            $table->dropForeign(['category_id']);
+            $table->dropColumn('category_id');
+        });
     }
 
 };
