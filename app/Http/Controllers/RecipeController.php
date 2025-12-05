@@ -11,30 +11,30 @@ use Illuminate\Support\Facades\Storage;
 class RecipeController extends Controller
 {
     public function index(Request $request)
-{
-    $categoryName = $request->query('category_name');
-    $title = $request->query('title');
+    {
+        $categoryName = $request->query('category_name');
+        $title = $request->query('title');
 
-    $recipes = Recipe::query();
+        $recipes = Recipe::query();
 
-    if ($categoryName) {
-        $recipes->where(function ($q) use ($categoryName) {
-            $q->whereHas('category', function ($q2) use ($categoryName) {
-                $q2->where('name', 'LIKE', "%{$categoryName}%");
+        if ($categoryName) {
+            $recipes->where(function ($q) use ($categoryName) {
+                $q->whereHas('category', function ($q2) use ($categoryName) {
+                    $q2->where('name', 'LIKE', "%{$categoryName}%");
+                });
+
+                $q->orWhere('category_name', 'LIKE', "%{$categoryName}%");
             });
+        }
 
-            $q->orWhere('category_name', 'LIKE', "%{$categoryName}%");
-        });
+        if ($title) {
+            $recipes->where('title', 'LIKE', "%{$title}%");
+        }
+
+        return response()->json(
+            $recipes->with(['category', 'ingredients', 'steps'])->get()
+        );
     }
-
-    if ($title) {
-        $recipes->where('title', 'LIKE', "%{$title}%");
-    }
-
-    return response()->json(
-        $recipes->with(['category', 'ingredients', 'steps'])->get()
-    );
-}
 
 
     public function show($id)
