@@ -58,15 +58,12 @@ class UserController extends Controller
         if ($user) {
             $currentToken = $request->user()->currentAccessToken();
             if ($currentToken) {
-                $request->user()->tokens()->where('id', 'name', 'email', $currentToken->id->name->email)->delete();
-
-                return response()->json(['status' => 'success', 'message' => 'Logged out successfully'], 200);
-            } else {
-                return response()->json(['status' => 'Error', 'message' => 'No active token found'], 400);
+                $request->user()->tokens()->where('id', $currentToken->id)->delete();
             }
-        } 
-        else {
-                return response()->json(['status' => 'Error', 'message' => 'Not authenticated'], 401);
+
+            return response()->json(['status' => 'success', 'message' => 'Logged out successfully'], 200);
         }
+
+        return response()->json(['status' => 'Error', 'message' => 'Not authenticated'], 401);
     }
 }
