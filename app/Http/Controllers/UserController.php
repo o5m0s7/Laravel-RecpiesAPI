@@ -22,7 +22,6 @@ class UserController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
-        // $token = $user->createToken('api-token')->plainTextToken;
 
         return response()->json([
             'message' => 'User registered successfully',
@@ -38,7 +37,7 @@ class UserController extends Controller
         if (!Auth::attempt($request->only('email', 'password')))
             return response()->json([
                 'message' => 'Invalid login details',
-                'status' => 'error'
+                'status' => 'Error'
             ], 401);
 
         $user = User::where('email', $data['email'])->first();
@@ -49,7 +48,7 @@ class UserController extends Controller
             'status' => 'success',
             'user' => $user,
             'token' => $token,
-        ]);
+        ], 200);
     }
 
     
@@ -59,12 +58,15 @@ class UserController extends Controller
         if ($user) {
             $currentToken = $request->user()->currentAccessToken();
             if ($currentToken) {
-                $request->user()->tokens()->where('id', $currentToken->id)->delete();
+                $request->user()->tokens()->where('id', 'name', 'email', $currentToken->id->name->email)->delete();
+
+                return response()->json(['status' => 'success', 'message' => 'Logged out successfully'], 200);
+            } else {
+                return response()->json(['status' => 'Error', 'message' => 'No active token found'], 400);
             }
-
-            return response()->json(['status' => 'success', 'message' => 'Logged out']);
+        } 
+        else {
+                return response()->json(['status' => 'Error', 'message' => 'Not authenticated'], 401);
         }
-
-        return response()->json(['status' => 'error', 'message' => 'Not authenticated'], 401);
     }
 }
