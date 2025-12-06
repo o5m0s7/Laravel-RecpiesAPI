@@ -73,11 +73,12 @@ class RecipeController extends Controller
         }
         $recipe = Recipe::create([
             'title' => $validated['title'],
-            'description' => $validated['description'] ?? null,
-            'cooking_time' => $validated['cooking_time'] ?? null,
-            'prep_time' => $validated['prep_time'] ?? null,
+            'description' => $validated['description'],
+            'cooking_time' => $validated['cooking_time'],
+            'prep_time' => $validated['prep_time'],
             'category_name' => $validated['category_name'],
             'image_path' => $imagePath,
+            'category_id' => null,
         ]);
 
 
@@ -95,6 +96,7 @@ class RecipeController extends Controller
                 'recipe_id' => $recipe->id,
                 'name' => $item['name'],
                 'quantity' => $item['quantity'] ?? null,
+                'unit' => $item['unit'] ?? null,
             ]);
         }
 
