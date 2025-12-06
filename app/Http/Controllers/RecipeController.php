@@ -62,6 +62,7 @@ class RecipeController extends Controller
             'ingredients' => 'required|array|min:1',
             'ingredients.*.name' => 'required|string',
             'ingredients.*.quantity' => 'nullable|string',
+            'ingerdients.*.unit' => 'nullable|string',
             'steps' => 'required|array|min:1',
             'steps.*.description' => 'required|string',
         ]);
