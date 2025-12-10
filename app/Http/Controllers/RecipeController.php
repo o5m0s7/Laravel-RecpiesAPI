@@ -59,6 +59,7 @@ class RecipeController extends Controller
             'prep_time' => 'nullable|integer',
             'image' => 'nullable|image|mimes:jpg,png,jpeg',
             'category_name' => 'required|string|exists:categories,name',
+            'category_id' => 'nullable|exists:categories,id',
             'ingredients' => 'required|array|min:1',
             'ingredients.*.name' => 'required|string',
             'ingredients.*.quantity' => 'nullable|string',
@@ -78,7 +79,7 @@ class RecipeController extends Controller
             'prep_time' => $validated['prep_time'],
             'category_name' => $validated['category_name'],
             'image_path' => $imagePath,
-            'category_id' => null,
+            'category_id' => $validated['category_id'] ?? null,
         ]);
 
 
@@ -150,6 +151,7 @@ class RecipeController extends Controller
                 'recipe_id' => $recipe->id,
                 'name' => $item['name'],
                 'quantity' => $item['quantity'] ?? null,
+                'unit' => $item['unit'] ?? null,
             ]);
         }
 
